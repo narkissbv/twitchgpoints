@@ -23,7 +23,7 @@
     }    
 
     // check if user can claim daily points
-    $sql = "SELECT `date`, amount, NOW() as now FROM `points` WHERE username='$username'";
+    $sql = "SELECT `date`, amount, NOW() + INTERVAL 10 HOUR as now FROM `points` WHERE username='$username'";
     $date_rs = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($date_rs);
     $date = substr($row['date'], 0, 10);
@@ -32,7 +32,7 @@
     if ($date != $now) {
       $amount += $daily_reward;
       $sql = "UPDATE `points`
-      SET amount={$amount}, `date`=NOW()
+      SET amount={$amount}, `date`=NOW() + INTERVAL 10 HOUR
       WHERE username='{$username}'";
       mysqli_query($link, $sql);
       echo "*Daily $daily_reward Panda Points claimed!* ";
@@ -95,9 +95,11 @@
           header('Content-Type: application/json');
           die(json_encode($response));
         } else {
-          echo "Leaderboard: ";
-          forEach($response as $value) {
-            echo "{$value['points']}: {$value['name']}, ";
+          $size = count($response);
+          $size = ($size < 10) ? $size : 10;
+          echo "Top $size: ";
+          for ($i = 0 ; $i < $size ; $i++) {
+            echo "{$response[$i]['points']}: {$response[$i]['name']}, ";
           }
         }
         break;

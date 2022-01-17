@@ -53,8 +53,9 @@
             if ($amount == 'all') {
               $amount = $balance;
             }
-            $bet = rand(0,1);
-            if ($bet) {
+            $win_probabilty = 70;
+            $bet = rand(0,100);
+            if ($bet <= $win_probabilty) {
               if ($amount > $balance) {
                 $amount = $balance;
               }

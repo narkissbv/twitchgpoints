@@ -52,6 +52,11 @@
             $amount = $query[1];
             if ($amount == 'all') {
               $amount = $balance;
+            } else {
+              $amount = (int)$amount;
+              if ($amount < 0) {
+                $amount = 0;
+              }
             }
             $win_probabilty = 70;
             $bet = rand(0,100);

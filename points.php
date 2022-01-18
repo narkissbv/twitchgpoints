@@ -69,7 +69,7 @@
                       SET amount={$balance}
                       WHERE username='{$username}'";
               mysqli_query($link, $sql);
-              echo "Congratulations! You won and gained {$amount} Panda Points! Your new balance is: {$balance}";
+              echo "Congratulations, {$username}! You won and gained {$amount} Panda Points! Your new balance is: {$balance}";
             } else {
               $balance -= $amount;
               if ($balance < 0) {
@@ -79,7 +79,7 @@
                       SET amount={$balance}
                       WHERE username='{$username}'";
               mysqli_query($link, $sql);
-              echo "You lost the bet! #feelsbadman :( Your new balance is: {$balance}";
+              echo "You lost the bet, {$username}! #feelsbadman :( Your new balance is: {$balance}";
             }
           } else {
             echo "missing params";

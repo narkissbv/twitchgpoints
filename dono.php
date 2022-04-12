@@ -17,7 +17,7 @@
   if ($type == "dono") {
     // remove the $ from the dono string
     $gain = substr($amount,1);
-    $gain = (float) $gain;
+    $gain = filter_var($gain, FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
     $gain = (int) ($gain * 100);
   } else if ($type == 'bits') {
     $gain = (int) $amount;
